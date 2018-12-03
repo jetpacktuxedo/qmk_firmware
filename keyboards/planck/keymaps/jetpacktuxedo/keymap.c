@@ -186,7 +186,7 @@ bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
-uint16_t muse_tempo = 20;
+uint16_t muse_tempo = 512;
 
 extern float clicky_rand;
 
@@ -208,15 +208,15 @@ void encoder_update(bool clockwise) {
   } else if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
-        muse_offset++;
+        muse_offset+=2;
       } else {
-        muse_offset--;
+        muse_offset-=2;
       }
     } else {
       if (clockwise) {
-        muse_tempo+=1;
+        muse_tempo-=10;
       } else {
-        muse_tempo-=1;
+        muse_tempo+=10;
       }
     }
   } else {
