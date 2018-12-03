@@ -3,6 +3,7 @@
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     #define AUDIO_CLICKY
+    #define DAC_SAMPLE_MAX 2048U
 #endif
 
 /*
