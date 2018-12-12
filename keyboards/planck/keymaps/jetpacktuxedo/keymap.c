@@ -24,7 +24,11 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _PLOVER,
-  _ADJUST
+  _ADJUST,
+  _RGB_H,
+  _RGB_S,
+  _RGB_V,
+  _RGB_M
 };
 
 enum planck_keycodes {
@@ -35,6 +39,10 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define RGB_H_A MO(_RGB_H)
+#define RGB_S_A MO(_RGB_S)
+#define RGB_V_A MO(_RGB_V)
+#define RGB_M_A MO(_RGB_M)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -115,17 +123,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |Plover|      |
+ * |      |Au Tog|Mu Mod|      |      |      |      |      |RGB H |RGB V |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice+|Mu Tog|      |      |      |      |      |RGB S |RGB M |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  RESET,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, PLOVER,  _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+    _______, AU_TOG,  MU_MOD,  _______, _______, _______, _______, _______, RGB_H_A, RGB_V_A, _______, _______,
+    _______, MUV_IN,  MU_TOG,  _______, _______, _______, _______, _______, RGB_S_A, RGB_M_A, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -145,7 +153,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
@@ -220,7 +227,31 @@ void encoder_update(bool clockwise) {
       }
     }
   } else {
-    if (IS_LAYER_ON(_RAISE)) {
+    if (IS_LAYER_ON(_RGB_H)) {
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
+    } else if (IS_LAYER_ON(_RGB_S)) {
+      if (clockwise) {
+        rgblight_increase_sat();
+      } else {
+        rgblight_decrease_sat();
+      }
+    } else if (IS_LAYER_ON(_RGB_V)) {
+      if (clockwise) {
+        rgblight_increase_val();
+      } else {
+        rgblight_decrease_val();
+      }
+    } else if (IS_LAYER_ON(_RGB_M)) {
+      if (clockwise) {
+        rgblight_step();
+      } else {
+        rgblight_step_reverse();
+      }
+    } else if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
         register_code(KC_RGHT);
         unregister_code(KC_RGHT);
@@ -247,12 +278,12 @@ void dip_update(uint8_t index, bool active) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(plover_song);
         #endif
-        layer_on(_ADJUST);
+        layer_on(_PLOVER);
       } else {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(plover_gb_song);
         #endif
-        layer_off(_ADJUST);
+        layer_off(_PLOVER);
       }
       break;
     case 1:
