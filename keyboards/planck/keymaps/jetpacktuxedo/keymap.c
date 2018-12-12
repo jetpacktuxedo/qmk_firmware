@@ -230,11 +230,11 @@ void encoder_update(bool clockwise) {
       }
     } else {
       if (clockwise) {
-        register_code(KC_DOWN);
-        unregister_code(KC_DOWN);
+        register_code(KC_WH_D);
+        unregister_code(KC_WH_D);
       } else {
-        register_code(KC_UP);
-        unregister_code(KC_UP);
+        register_code(KC_WH_U);
+        unregister_code(KC_WH_U);
       }
     }
   }
