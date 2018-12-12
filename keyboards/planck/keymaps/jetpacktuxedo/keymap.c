@@ -227,46 +227,53 @@ void encoder_update(bool clockwise) {
       }
     }
   } else {
-    if (IS_LAYER_ON(_RGB_H)) {
-      if (clockwise) {
-        rgblight_increase_hue();
-      } else {
-        rgblight_decrease_hue();
-      }
-    } else if (IS_LAYER_ON(_RGB_S)) {
-      if (clockwise) {
-        rgblight_increase_sat();
-      } else {
-        rgblight_decrease_sat();
-      }
-    } else if (IS_LAYER_ON(_RGB_V)) {
-      if (clockwise) {
-        rgblight_increase_val();
-      } else {
-        rgblight_decrease_val();
-      }
-    } else if (IS_LAYER_ON(_RGB_M)) {
-      if (clockwise) {
-        rgblight_step();
-      } else {
-        rgblight_step_reverse();
-      }
-    } else if (IS_LAYER_ON(_RAISE)) {
-      if (clockwise) {
-        register_code(KC_RGHT);
-        unregister_code(KC_RGHT);
-      } else {
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-      }
-    } else {
-      if (clockwise) {
-        register_code(KC_WH_D);
-        unregister_code(KC_WH_D);
-      } else {
-        register_code(KC_WH_U);
-        unregister_code(KC_WH_U);
-      }
+    switch(biton32(layer_state)) {
+      case _RGB_H:
+        if (clockwise) {
+          rgblight_increase_hue();
+        } else {
+          rgblight_decrease_hue();
+        }
+      break;
+      case _RGB_S:
+        if (clockwise) {
+          rgblight_increase_sat();
+        } else {
+          rgblight_decrease_sat();
+        }
+      break;
+      case _RGB_V:
+        if (clockwise) {
+          rgblight_increase_val();
+        } else {
+          rgblight_decrease_val();
+        }
+      break;
+      case _RGB_M:
+        if (clockwise) {
+          rgblight_step();
+        } else {
+          rgblight_step_reverse();
+        }
+      break;
+      case _RAISE:
+        if (clockwise) {
+            register_code(KC_RGHT);
+          unregister_code(KC_RGHT);
+        } else {
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+        }
+      break;
+      default:
+        if (clockwise) {
+          register_code(KC_WH_D);
+          unregister_code(KC_WH_D);
+        } else {
+          register_code(KC_WH_U);
+          unregister_code(KC_WH_U);
+        }
+      break;
     }
   }
 }
