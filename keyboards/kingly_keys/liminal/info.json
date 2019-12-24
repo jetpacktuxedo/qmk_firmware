@@ -1,0 +1,13 @@
+{
+  "keyboard_name": "liminal",
+  "url": "",
+  "maintainer": "TheRoyalSweatshirt",
+  "width": 14,
+  "height": 4,
+  "layouts": {
+    "LAYOUT_base_kit": {
+      "layout": [
+      ]
+    }
+  }
+}
