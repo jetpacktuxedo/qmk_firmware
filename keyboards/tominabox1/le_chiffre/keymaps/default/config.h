@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Copyright 2020 tominabox1
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,3 +20,11 @@
 
 #define COMBO_COUNT 5
 #define COMBO_TERM 30
+=======
+#include "../../config.h"
+
+#define TAPPING_TERM 250
+
+
+#define IGNORE_MOD_TAP_INTERRUPT
+>>>>>>> 456d097615 (Added config.h for le chiffre)
