@@ -13,6 +13,30 @@
 #define KC_GL RGUI_T(KC_L)
 #define KC_AK RALT_T(KC_K)
 
+enum combo_events {
+    ESC_COMBO,
+    GRV_COMBO,
+    TLD_COMBO,
+    BS_COMBO,
+    DEL_COMBO,
+};
+
+const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM grv_combo[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM tld_combo[] = {KC_EXLM, KC_AT, COMBO_END};
+const uint16_t PROGMEM bs_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM del_combo[] = {KC_9, KC_0, COMBO_END};
+
+combo_t key_combos[] = {
+    [ESC_COMBO] = COMBO(esc_combo, KC_ESC),
+    [GRV_COMBO] = COMBO(grv_combo, KC_GRV),
+    [TLD_COMBO] = COMBO(tld_combo, KC_TILD),
+    [BS_COMBO]  = COMBO(bs_combo, KC_BSPC),
+    [DEL_COMBO] = COMBO(del_combo, KC_DEL),
+};
+
+uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
     KC_Q,   KC_W,  KC_E,    KC_R, KC_T, KC_ESC, KC_Y, KC_U,  KC_I,    KC_O,   KC_P,
