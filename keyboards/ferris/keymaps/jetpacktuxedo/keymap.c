@@ -37,7 +37,7 @@ const uint16_t PROGMEM bspc_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM rshift_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM l3_combo[] = {KC_Z, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM lsuper_combo[] = {KC_Z, KC_S, COMBO_END};
-const uint16_t PROGMEM rsuper_combo[] = {KC_DOT, KC_L, COMBO_END};
+const uint16_t PROGMEM rsuper_combo[] = {KC_L, KC_SLSH, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 	COMBO(esc_combo, KC_ESC),
