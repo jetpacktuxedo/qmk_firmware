@@ -1,5 +1,48 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    GIGACRINGE = SAFE_RANGE,
+    HUSTLECHEER,
+    PUNCHERS,
+    MALFOCRINGE,
+    HUSTRICK,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case GIGACRINGE:
+        if (record->event.pressed) {
+            SEND_STRING("thehus1A thehus1B \nthehus1C thehus1D \n");
+        } else {
+        }
+        break;
+
+    case HUSTLECHEER:
+        if (record->event.pressed) {
+            SEND_STRING("thehus1HUScheer thehus1TLEcheer thehus1CATcheer ");
+        } else {
+        }
+        break;
+
+    case PUNCHERS:
+        if (record->event.pressed) {
+           SEND_STRING("thehus1PunchersFORREAL "); 
+        }
+        break;
+    case MALFOCRINGE:
+        if (record->event.pressed) {
+           SEND_STRING("malfO1 malfO2 thehus1A thehus1B \nmalfO3 malfKiss  thehus1C thehus1D \n"); 
+        }
+        break;
+    case HUSTRICK:
+        if (record->event.pressed) {
+           SEND_STRING("thehus1Taps thehus1HUScheer thehus1TLEcheer thehus1CATcheer thehus1Taps thehus1HUScheer thehus1TLEcheer thehus1CATcheer thehus1Taps \n");
+        }
+        break;
+    }
+    return true;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
     KC_Q, KC_W, KC_E, KC_R, KC_T,          KC_Y, KC_U,  KC_I,    KC_O,   KC_P,
@@ -28,16 +71,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, RGB_VAD, RGB_VAI, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                       KC_TRNS,      KC_TRNS,               KC_TRNS,     KC_TRNS
   ),
+  [4] = LAYOUT(
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      HUSTRICK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      GIGACRINGE, HUSTLECHEER, PUNCHERS, MALFOCRINGE, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                      KC_TRNS,      KC_TRNS,               KC_TRNS,     KC_TRNS
+  ),
 };
 
 const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM tild_combo[] = {KC_1, KC_2, COMBO_END};
-const uint16_t PROGMEM grv_combo[] = {KC_!, KC_@, COMBO_END};
+const uint16_t PROGMEM grv_combo[] = {KC_EXLM, KC_AT, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM lshift_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM bspc_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM rshift_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM l3_combo[] = {KC_Z, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM l4_combo[] = {KC_F, KC_G, COMBO_END};
 const uint16_t PROGMEM lsuper_combo[] = {KC_Z, KC_S, COMBO_END};
 const uint16_t PROGMEM rsuper_combo[] = {KC_L, KC_SLSH, COMBO_END};
 
@@ -50,6 +100,7 @@ combo_t key_combos[COMBO_COUNT] = {
 	COMBO(rshift_combo, KC_RSFT),
 	COMBO(bspc_combo, KC_BSPC),
 	COMBO(l3_combo, MO(3)),
+	COMBO(l4_combo, MO(4)),
 	COMBO(lsuper_combo, KC_LGUI),
 	COMBO(rsuper_combo, KC_RGUI),
 };
