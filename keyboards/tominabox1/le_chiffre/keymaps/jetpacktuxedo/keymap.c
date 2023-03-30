@@ -67,23 +67,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-	if (IS_LAYER_ON(3)) {
-            if (clockwise) {
-                tap_code(KC_RGHT);
-            } else {
-                tap_code(KC_LEFT);
-            }
-	} else {
-            if (clockwise) {
-                tap_code(KC_PGDN);
-            } else {
-                tap_code(KC_PGUP);
-            }
-	}
-    }
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][1] = {
+    [0] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
+    [1] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
+    [2] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [3] =  { ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)},
+};
+#endif
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
